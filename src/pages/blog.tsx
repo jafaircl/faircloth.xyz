@@ -68,7 +68,7 @@ interface BlogPageProps {
 export default ({ data }: BlogPageProps) => {
   return (
     <Layout>
-      <SEO title="Blog | faircloth.xyz" />
+      <SEO title="Blog | faircloth.xyz" url="https://www.faircloth.xyz/blog/" />
       <ul className={styles.blogPageWrap}>
         {data.allFile.edges
           .filter(

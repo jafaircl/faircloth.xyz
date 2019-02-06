@@ -68,7 +68,7 @@ interface WorkPageProps {
 export default ({ data }: WorkPageProps) => {
   return (
     <Layout>
-      <SEO title="Work | faircloth.xyz" />
+      <SEO title="Work | faircloth.xyz" url="https://www.faircloth.xyz/work/" />
       <ul className={styles.workPageWrap}>
         {data.allFile.edges
           .filter(

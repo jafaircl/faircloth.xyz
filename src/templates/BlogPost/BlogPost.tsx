@@ -52,7 +52,13 @@ export const BlogPost: FunctionComponent<BlogPostProps> = ({
     <SEO
       title={`${post.frontmatter.title} | faircloth.xyz`}
       description={post.frontmatter.description}
-      image={post.frontmatter.featuredImage.childImageSharp.sizes.src}
+      image={`${siteMetadata.siteUrl}/${
+        post.frontmatter.featuredImage.childImageSharp.sizes.src
+      }`.replace(/([^:]\/)\/+/g, '$1')}
+      url={`${siteMetadata.siteUrl}/${post.fields.slug}`.replace(
+        /([^:]\/)\/+/g,
+        '$1'
+      )}
     />
     <article className={styles.blogPostWrap}>
       <header>
@@ -74,9 +80,10 @@ export const BlogPost: FunctionComponent<BlogPostProps> = ({
       <footer>
         <a
           target="_blank"
-          href={`https://mobile.twitter.com/search?q=${
-            siteMetadata.siteUrl
-          }/blog/${post.fields.slug}`.replace(/([^:]\/)\/+/g, '$1')}
+          rel="noopener"
+          href={`https://mobile.twitter.com/search?q=${siteMetadata.siteUrl}/${
+            post.fields.slug
+          }`.replace(/([^:]\/)\/+/g, '$1')}
         >
           Discuss this article on twitter
         </a>

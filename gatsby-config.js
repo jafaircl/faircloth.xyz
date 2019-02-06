@@ -3,7 +3,7 @@ const postCssResponsiveType = require('postcss-responsive-type')
 module.exports = {
   siteMetadata: {
     title: `faircloth.xyz`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `Adventures in digital marketing and web design`,
     author: `Jonathan Faircloth`,
     twitter: `@jafaircl`,
     siteUrl: `https://www.faircloth.xyz`,
@@ -16,6 +16,13 @@ module.exports = {
       options: {
         postCssPlugins: [postCssResponsiveType()],
         precision: 8,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-tagmanager`,
+      options: {
+        id: 'GTM-W9S9CXL',
+        includeInDevelopment: false,
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -119,6 +126,62 @@ module.exports = {
       resolve: 'gatsby-plugin-htaccess',
       options: {
         https: true,
+        www: true,
+        custom: `
+<IfModule mod_headers.c>
+  # Serve brotli compressed HTML files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} br
+  RewriteCond %{REQUEST_FILENAME}\.br -s
+  RewriteRule ^(.*)\.html $1\.html\.br [QSA]
+
+  # Serve gzip compressed HTML files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}\.gz -s
+  RewriteRule ^(.*)\.html $1\.html\.gz [QSA]
+
+
+  # Serve brotli compressed CSS files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} br
+  RewriteCond %{REQUEST_FILENAME}\.br -s
+  RewriteRule ^(.*)\.css $1\.css\.br [QSA]
+
+  # Serve gzip compressed CSS files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}\.gz -s
+  RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
+
+  # Serve brotli compressed JS files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} br
+  RewriteCond %{REQUEST_FILENAME}\.br -s
+  RewriteRule ^(.*)\.js $1\.js\.br [QSA]
+
+  # Serve gzip compressed JS files if they exist and the client accepts gzip.
+  RewriteCond %{HTTP:Accept-encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}\.gz -s
+  RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
+
+  # Serve correct content types, and prevent mod_deflate double gzip.
+  RewriteRule \.html\.gz$ - [T=text/html,E=no-gzip:1]
+  RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
+  RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]
+  RewriteRule \.html\.br$ - [T=text/html,E=no-gzip:1]
+  RewriteRule \.css\.br$ - [T=text/css,E=no-gzip:1]
+  RewriteRule \.js\.br$ - [T=text/javascript,E=no-gzip:1]
+
+  <FilesMatch "(\.html\.gz|\.js\.gz|\.css\.gz)$">
+    # Serve correct encoding type.
+    Header set Content-Encoding gzip
+    # Force proxies to cache gzipped & non-gzipped css/js files separately.
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+  <FilesMatch "(\.html\.br|\.js\.br|\.css\.br)$">
+    # Serve correct encoding type.
+    Header set Content-Encoding br
+    # Force proxies to cache gzipped & non-gzipped css/js files separately.
+    Header append Vary Accept-Encoding
+  </FilesMatch>
+</IfModule>
+        `,
       },
     },
     /*{

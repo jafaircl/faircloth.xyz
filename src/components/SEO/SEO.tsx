@@ -9,6 +9,7 @@ const query = graphql`
         title
         description
         image
+        siteUrl
       }
     }
     imageSharp(original: { src: { regex: "/default-logo/" } }) {
@@ -23,6 +24,7 @@ interface SEO {
   title?: string
   description?: string
   image?: string
+  url?: string
   lang?: string
   prefix?: string
   htmlClass?: string
@@ -34,6 +36,7 @@ interface SeoDefaultsQuery {
       title: string
       description: string
       image: string
+      siteUrl: string
     }
   }
   imageSharp: {
@@ -47,6 +50,7 @@ export const SEO: FunctionComponent<SEO> = ({
   title,
   description,
   image,
+  url,
   lang = 'en',
   prefix = 'og: http://ogp.me/ns#',
 }) => (
@@ -54,7 +58,11 @@ export const SEO: FunctionComponent<SEO> = ({
     query={query}
     render={({
       site: {
-        siteMetadata: { title: defaultTitle, description: defaultDescription },
+        siteMetadata: {
+          title: defaultTitle,
+          description: defaultDescription,
+          siteUrl,
+        },
       },
       imageSharp: {
         fixed: { src: defaultImage },
@@ -62,11 +70,20 @@ export const SEO: FunctionComponent<SEO> = ({
     }: SeoDefaultsQuery) => {
       const _title = title ? title : defaultTitle
       const _description = description ? description : defaultDescription
-      const _image = image ? image : defaultImage
+      const _image = image
+        ? image
+        : `${siteUrl}/${defaultImage}`.replace(/([^:]\/)\/+/g, '$1')
+      const _url = url ? url : `${siteUrl}/`.replace(/([^:]\/)\/+/g, '$1')
       return (
         <Helmet
           title={_title}
           htmlAttributes={{ lang, prefix }}
+          link={[
+            {
+              rel: `canonical`,
+              href: _url,
+            },
+          ]}
           meta={[
             {
               name: `description`,
@@ -89,6 +106,14 @@ export const SEO: FunctionComponent<SEO> = ({
               content: `website`,
             },
             {
+              property: `og:url`,
+              content: _url,
+            },
+            {
+              property: `fb:app_id`,
+              content: '284209452253887',
+            },
+            {
               name: `twitter:card`,
               content: `summary_large_image`,
             },
@@ -107,6 +132,10 @@ export const SEO: FunctionComponent<SEO> = ({
             {
               name: `twitter:image`,
               content: _image,
+            },
+            {
+              name: 'google-site-verification',
+              content: '1FLwZU5itXUpsehPM1XVM3whbNmPsJAnhOxrowXUykg',
             },
           ]}
         />
