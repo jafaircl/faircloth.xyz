@@ -1,0 +1,63 @@
+@import '~react-toggle/style.css';
+
+.light {
+  $background-color: white;
+  background-color: $background-color;
+  color: rgba(0, 0, 0, 0.87);
+
+  .siteHeader {
+    background-color: $background-color;
+  }
+}
+
+.dark {
+  $background-color: rgb(34, 40, 49);
+  background-color: $background-color;
+  color: rgb(249, 255, 238);
+
+  .siteHeader {
+    background-color: $background-color;
+  }
+}
+
+$background-color: #000;
+.themeToggle {
+  &.react-toggle {
+    .react-toggle-track {
+      background-color: $background-color;
+
+      &:hover {
+        background-color: $background-color;
+      }
+
+      .react-toggle-track-check,
+      .react-toggle-track-x {
+        margin: 0;
+        padding: 0;
+        margin-top: 14px;
+      }
+      .react-toggle-track-check {
+        margin-left: -3px;
+      }
+
+      .react-toggle-track-x {
+        margin-right: 3px;
+      }
+    }
+  }
+  &.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+    background-color: $background-color;
+  }
+  &.react-toggle--checked .react-toggle-track {
+    background-color: $background-color;
+  }
+
+  &.react-toggle--checked:hover:not(.react-toggle--disabled)
+    .react-toggle-track {
+    background-color: $background-color;
+  }
+
+  &.react-toggle--checked .react-toggle-thumb {
+    border-color: $background-color;
+  }
+}

@@ -1,0 +1,11 @@
+.lightTheme {
+  background-color: white;
+  color: black;
+  @import '~prismjs/themes/prism-tomorrow.css';
+}
+
+.darkTheme {
+  background-color: black;
+  color: white;
+  @import '~prismjs/themes/prism-tomorrow.css';
+}

@@ -1,0 +1,19 @@
+.lightTheme {
+  $background-color: white;
+  background-color: $background-color;
+  color: rgba(0, 0, 0, 0.87);
+
+  .siteHeader {
+    background-color: $background-color;
+  }
+}
+
+.darkTheme {
+  $background-color: rgb(34, 40, 49);
+  background-color: $background-color;
+  color: rgb(249, 255, 238);
+
+  .siteHeader {
+    background-color: $background-color;
+  }
+}

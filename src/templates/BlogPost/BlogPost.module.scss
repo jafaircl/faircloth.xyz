@@ -1,0 +1,29 @@
+@import '../../scss/fonts.scss';
+@import '../../scss/sizes.scss';
+
+.blogPostWrap {
+  a {
+    color: inherit;
+
+    &:hover,
+    &:visited {
+      color: inherit;
+    }
+  }
+  time {
+    font-family: $monospace-font-stack;
+  }
+
+  .blogPostInfo {
+    font-family: $monospace-font-stack;
+
+    li {
+      display: inline-block;
+      margin-right: $base-size-unit;
+    }
+  }
+
+  footer {
+    margin-top: 4 * $base-size-unit;
+  }
+}

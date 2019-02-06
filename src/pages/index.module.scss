@@ -1,0 +1,27 @@
+@import '../scss/sizes.scss';
+@import '../scss/fonts.scss';
+
+.indexPageWrap {
+  // max-width: $max-content-width;
+  // margin: 0 auto;
+  // padding: $content-padding;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover,
+    &:visited {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}
+
+.postDate {
+  font-family: $monospace-font-stack;
+}
+
+.typist {
+  font-size: 2 * $base-size-unit;
+}

@@ -1,0 +1,19 @@
+@import '../../scss/sizes.scss';
+
+.siteFooter {
+  text-align: center;
+
+  .footerList {
+    max-width: $max-content-width;
+    margin: (4 * $base-size-unit) auto 0 auto;
+
+    .footerListItem {
+      display: inline-block;
+      width: $base-size-unit;
+
+      &:not(:last-child) {
+        margin-right: 4 * $base-size-unit;
+      }
+    }
+  }
+}

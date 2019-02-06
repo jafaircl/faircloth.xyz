@@ -1,0 +1,43 @@
+@import '~normalize.css/normalize.css';
+@import '~prismjs/themes/prism-tomorrow.css';
+@import '../../scss/sizes.scss';
+@import '../../scss/fonts.scss';
+
+$code-font-size: 0.8em;
+
+html {
+  font-family: $sans-serif-font-stack;
+  font-size: responsive 14px 21px;
+  font-range: 420px 1280px;
+  line-height: 1.618;
+}
+
+.gatsby-highlight > pre {
+  font-size: $code-font-size;
+  margin: 3em auto;
+  padding: 3em;
+  border-radius: 4px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+:not(pre) > code.language-text {
+  font-size: $code-font-size;
+  padding: 0.2em 0.6em;
+}
+
+ul {
+  padding-left: 0;
+
+  li {
+    list-style-type: none;
+  }
+
+  li:before {
+    content: '\200B';
+  }
+}
+
+.twitter-tweet {
+  margin: 0 auto;
+}
+

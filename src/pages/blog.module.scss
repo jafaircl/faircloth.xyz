@@ -1,0 +1,24 @@
+@import '../scss/sizes.scss';
+@import '../scss/fonts.scss';
+
+.blogPageWrap {
+  // max-width: $max-content-width;
+  // margin: 0 auto;
+  // padding: $content-padding;
+  margin: 0 auto;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover,
+    &:visited {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+}
+
+.postDate {
+  font-family: $monospace-font-stack;
+}
