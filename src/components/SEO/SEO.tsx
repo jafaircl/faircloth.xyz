@@ -73,7 +73,7 @@ export const SEO: FunctionComponent<SEO> = ({
       const _image = image
         ? image
         : `${siteUrl}/${defaultImage}`.replace(/([^:]\/)\/+/g, '$1')
-      const _url = url ? url : `${siteUrl}/`.replace(/([^:]\/)\/+/g, '$1')
+      const _url = url ? url : siteUrl
       return (
         <Helmet
           title={_title}

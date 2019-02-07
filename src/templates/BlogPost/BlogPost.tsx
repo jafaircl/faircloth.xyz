@@ -76,7 +76,10 @@ export const BlogPost: FunctionComponent<BlogPostProps> = ({
           {post.frontmatter.tags.join(' · ')}
         </p>
       </header>
-      <main dangerouslySetInnerHTML={{ __html: post.html }} />
+      <main
+        className={styles.blogPostContent}
+        dangerouslySetInnerHTML={{ __html: post.html }}
+      />
       <footer>
         <a
           target="_blank"
