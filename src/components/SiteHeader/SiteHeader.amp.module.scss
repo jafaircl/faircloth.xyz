@@ -1,0 +1,51 @@
+@import '~@material/animation/functions';
+@import '../../scss/sizes.scss';
+@import '../../scss/fonts.scss';
+
+$box-shadow-size: 0.2rem;
+
+.light {
+  $background-color: white;
+  background-color: $background-color;
+  color: rgba(0, 0, 0, 0.87);
+
+  .siteHeader {
+    background-color: $background-color;
+  }
+}
+
+.siteHeader {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: inherit;
+  opacity: 1;
+  height: $header-height;
+}
+
+.siteHeaderToolbar {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: $max-content-width;
+  margin: 0 auto;
+  padding: 0 $content-padding;
+
+  a {
+    font-size: 2rem;
+    font-family: $monospace-font-stack;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover,
+    &:visited {
+      color: inherit;
+    }
+  }
+}
+
+.flexSpacer {
+  flex: 1 1 auto;
+}

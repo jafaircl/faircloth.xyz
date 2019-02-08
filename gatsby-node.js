@@ -10,7 +10,6 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
   return new Promise((resolve, reject) => {
-    const blogPost = path.resolve('./src/templates/BlogPost/index.ts')
     resolve(
       graphql(
         `
@@ -47,7 +46,17 @@ exports.createPages = ({ graphql, actions }) => {
 
           createPage({
             path: post.node.fields.slug,
-            component: blogPost,
+            component: path.resolve('./src/templates/BlogPost/index.ts'),
+            context: {
+              slug: post.node.fields.slug,
+              previous,
+              next,
+            },
+          })
+
+          createPage({
+            path: `${post.node.fields.slug}/amp/`.replace(/([^:]\/)\/+/g, '$1'),
+            component: path.resolve('./src/templates/AmpBlogPost/index.ts'),
             context: {
               slug: post.node.fields.slug,
               previous,

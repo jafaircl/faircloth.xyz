@@ -1,9 +1,5 @@
 import React from 'react'
 
-import { useObservable, useEventCallback } from 'rxjs-hooks'
-
-import { theme$ } from '../ThemeToggle/ThemeToggle'
-
 import styles from './SiteFooter.module.scss'
 import './SiteFooter.scss'
 
@@ -12,12 +8,6 @@ import { ReactComponent as LinkedIn } from '../../images/linkedin.svg'
 import { ReactComponent as Twitter } from '../../images/twitter.svg'
 
 export const SiteFooter = () => {
-  const theme = useObservable(
-    () => theme$,
-    typeof localStorage !== 'undefined'
-      ? localStorage.getItem('theme') || 'light'
-      : 'light'
-  )
   return (
     <footer className={styles.siteFooter}>
       <ul className={styles.footerList}>
@@ -28,7 +18,7 @@ export const SiteFooter = () => {
             href="https://github.com/jafaircl"
             rel="noopener"
           >
-            <Github fill={theme === 'light' ? '#000' : '#fff'} />
+            <Github fill={'#000'} />
           </a>
         </li>
         <li className={styles.footerListItem} key="2">
@@ -38,7 +28,7 @@ export const SiteFooter = () => {
             href="https://www.linkedin.com/in/jonathanfaircloth/"
             rel="noopener"
           >
-            <LinkedIn fill={theme === 'light' ? '#000' : '#fff'} />
+            <LinkedIn fill={'#000'} />
           </a>
         </li>
         <li className={styles.footerListItem} key="3">
@@ -48,7 +38,7 @@ export const SiteFooter = () => {
             href="https://twitter.com/jafaircl"
             rel="noopener"
           >
-            <Twitter fill={theme === 'light' ? '#000' : '#fff'} />
+            <Twitter fill={'#000'} />
           </a>
         </li>
       </ul>

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { renderToString } from 'react-dom/server'
 import { Minimatch } from 'minimatch'
+import flattenDeep from 'lodash.flattendeep'
 const JSDOM = eval('require("jsdom")').JSDOM
 
 const ampBoilerplate = `body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}`
@@ -29,14 +30,16 @@ export const onPreRenderHTML = (
     relAmpHtmlPattern = '{{canonicalBaseUrl}}{{pathname}}{{pathIdentifier}}',
   }
 ) => {
-  const headComponents = getHeadComponents()
+  const headComponents = flattenDeep(getHeadComponents())
   const preBodyComponents = getPreBodyComponents()
   const postBodyComponents = getPostBodyComponents()
   const isAmp = pathname && pathname.indexOf(pathIdentifier) > -1
   if (isAmp) {
     const styles = headComponents.reduce((str, x) => {
       if (x.type === 'style') {
-        str += x.props.dangerouslySetInnerHTML.__html
+        if (x.props.dangerouslySetInnerHTML) {
+          str += x.props.dangerouslySetInnerHTML.__html
+        }
       } else if (x.key && x.key === 'TypographyStyle') {
         str = `${x.props.typography.toString()}${str}`
       }
@@ -111,13 +114,7 @@ export const onPreRenderHTML = (
 }
 
 export const onRenderBody = (
-  {
-    getHeadComponents,
-    setHeadComponents,
-    setHtmlAttributes,
-    setPreBodyComponents,
-    pathname,
-  },
+  { setHeadComponents, setHtmlAttributes, setPreBodyComponents, pathname },
   {
     analytics,
     canonicalBaseUrl,
@@ -184,6 +181,11 @@ export const replaceRenderer = (
       height: 475,
       layout: 'responsive',
     },
+    iframe: {
+      width: 640,
+      height: 475,
+      layout: 'responsive',
+    },
   }
   const headComponents = []
   const isAmp = pathname && pathname.indexOf(pathIdentifier) > -1
@@ -192,6 +194,7 @@ export const replaceRenderer = (
     const dom = new JSDOM(bodyHTML)
     const document = dom.window.document
 
+    // convert images to amp-img or amp-anim
     const images = [].slice.call(document.getElementsByTagName('img'))
     images.forEach(image => {
       let ampImage
@@ -213,6 +216,25 @@ export const replaceRenderer = (
         }
       })
       image.parentNode.replaceChild(ampImage, image)
+    })
+
+    // convert iframes to amp-iframe
+    const iframes = [].slice.call(document.getElementsByTagName('iframe'))
+    iframes.forEach(iframe => {
+      headComponents.push('amp-iframe')
+      const ampIframe = document.createElement('amp-iframe')
+      const attributes = Object.keys(iframe.attributes)
+      const includedAttributes = attributes.map(key => {
+        const attribute = iframe.attributes[key]
+        ampIframe.setAttribute(attribute.name, attribute.value)
+        return attribute.name
+      })
+      Object.keys(defaults.iframe).forEach(key => {
+        if (includedAttributes && includedAttributes.indexOf(key) === -1) {
+          ampIframe.setAttribute(key, defaults.iframe[key])
+        }
+      })
+      iframe.parentNode.replaceChild(ampIframe, iframe)
     })
     setHeadComponents(
       Array.from(new Set(headComponents)).map((x, i) => (

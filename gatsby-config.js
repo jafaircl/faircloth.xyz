@@ -184,22 +184,12 @@ module.exports = {
         `,
       },
     },
-    /*{
+    {
       resolve: `gatsby-plugin-amp`,
       options: {
         analytics: {
-          type: 'gtag',
           dataCredentials: 'include',
-          config: {
-            vars: {
-              gtag_id: 'GTM-1234567',
-              config: {
-                'GTM-1234567': {
-                  page_location: '{{pathname}}',
-                },
-              },
-            },
-          },
+          config: `https://www.googletagmanager.com/amp.json?id=GTM-1234567&amp;gtm.url=SOURCE_URL`,
         },
         canonicalBaseUrl: 'https://www.faircloth.xyz/',
         components: ['amp-form'],
@@ -208,6 +198,6 @@ module.exports = {
         relAmpHtmlPattern: '{{canonicalBaseUrl}}{{pathname}}{{pathIdentifier}}',
         useAmpClientIdApi: true,
       },
-    },*/
+    },
   ],
 }

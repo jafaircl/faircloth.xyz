@@ -25,6 +25,7 @@ interface SEO {
   description?: string
   image?: string
   url?: string
+  addCanonical?: boolean
   lang?: string
   prefix?: string
   htmlClass?: string
@@ -51,6 +52,7 @@ export const SEO: FunctionComponent<SEO> = ({
   description,
   image,
   url,
+  addCanonical = true,
   lang = 'en',
   prefix = 'og: http://ogp.me/ns#',
 }) => (
@@ -78,12 +80,16 @@ export const SEO: FunctionComponent<SEO> = ({
         <Helmet
           title={_title}
           htmlAttributes={{ lang, prefix }}
-          link={[
-            {
-              rel: `canonical`,
-              href: _url,
-            },
-          ]}
+          link={
+            addCanonical
+              ? [
+                  {
+                    rel: `canonical`,
+                    href: _url,
+                  },
+                ]
+              : []
+          }
           meta={[
             {
               name: `description`,

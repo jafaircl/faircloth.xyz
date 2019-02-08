@@ -1,0 +1,33 @@
+@import '../../scss/sizes.scss';
+@import '../../scss/fonts.scss';
+
+.siteNav {
+  max-width: $max-content-width;
+  margin: (2 * $base-size-unit) auto 0 auto;
+  padding: $content-padding;
+  font-family: $monospace-font-stack;
+  font-size: 1.5rem;
+}
+
+.siteNavList {
+  li {
+    display: inline-block;
+    margin-right: 2 * $base-size-unit;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      &:hover,
+      &:visited {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.mainContent {
+  max-width: $max-content-width;
+  margin: 0 auto;
+  padding: 0 $content-padding;
+}
