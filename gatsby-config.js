@@ -189,11 +189,18 @@ module.exports = {
       options: {
         analytics: {
           dataCredentials: 'include',
-          config: `https://www.googletagmanager.com/amp.json?id=GTM-1234567&amp;gtm.url=SOURCE_URL`,
+          config: `https://www.googletagmanager.com/amp.json?id=GTM-MZWCFNW&gtm.url=SOURCE_URL`,
         },
         canonicalBaseUrl: 'https://www.faircloth.xyz/',
-        components: ['amp-form'],
-        excludedPaths: ['/404*', '/'],
+        components: [],
+        excludedPaths: [
+          '/404/',
+          '/blog/',
+          '/work/',
+          '/offline-plugin-app-shell-fallback/',
+          '/resume/',
+          '/',
+        ],
         pathIdentifier: '/amp/',
         relAmpHtmlPattern: '{{canonicalBaseUrl}}{{pathname}}{{pathIdentifier}}',
         useAmpClientIdApi: true,
