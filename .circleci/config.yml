@@ -5,9 +5,6 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: echo $FTP_HOST
-      - run: echo $FTP_USERNAME
-      - run: echo $FTP_PASSWORD
       - run: npm install
       - run: npx gatsby build
       - run: node .circleci/deploy.js
