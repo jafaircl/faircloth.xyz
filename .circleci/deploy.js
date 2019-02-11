@@ -7,7 +7,7 @@ const config = {
   host: process.env.FTP_HOST,
   port: 21,
   localRoot: __dirname + '/../public/',
-  remoteRoot: '/deploy_test',
+  remoteRoot: '/faircloth.xyz',
   include: ['*'],
 }
 
