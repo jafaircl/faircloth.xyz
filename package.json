@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "faircloth.xyz",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "My personal Blog",
+  "version": "1.0.0",
+  "author": "Jonathan Faircloth <jonathan@faircloth.xyz>",
   "dependencies": {
     "@material/animation": "^0.41.0",
     "@svgr/webpack": "^4.1.0",
@@ -70,6 +70,7 @@
     "@types/react-helmet": "^5.0.8",
     "babel-jest": "^24.1.0",
     "babel-preset-gatsby": "^0.1.7",
+    "ftp-deploy": "^2.3.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.1.0",
     "node-sass": "^4.11.0",
@@ -80,9 +81,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "htttps://github.com/jafaircl/faircloth.xyz"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/jafaircl/faircloth.xyz/issues"
   }
 }
