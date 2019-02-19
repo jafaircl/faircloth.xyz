@@ -190,4 +190,4 @@ Now all that's left to do is create our HTML file. We'll give our user a way to 
 
 That's all! We can certainly make our inputs prettier but we now have a way to visualize our Bayesian A/B test results. See below for a working example:
 
-<iframe src="https://stackblitz.com/edit/angular-ygejuj?embed=1&hideExplorer=1&view=preview" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" >
+<iframe src="https://stackblitz.com/edit/angular-ygejuj?embed=1&hideExplorer=1&view=preview" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin">
