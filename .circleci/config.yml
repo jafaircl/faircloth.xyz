@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
-      - run: yarn install
+      - run: npm install
       - run: npx gatsby build
       - run: node .circleci/deploy.js
       - run: echo "WE'RE ONLINE"
