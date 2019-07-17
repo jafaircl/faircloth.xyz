@@ -1,5 +1,5 @@
 ---
-title: 3 Ways To Make Multipe HTTP Requests Using RxJS
+title: 3 Ways To Make Multiple HTTP Requests Using RxJS
 description: Placeholder description
 featuredImage: ./default-logo.png
 date: '2019-07-16T22:12:03.284Z'
