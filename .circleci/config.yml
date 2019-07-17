@@ -5,6 +5,7 @@ jobs:
       - image: circleci/node:latest
     steps:
       - checkout
+      - run: npm install sharp@latest
       - run: npm install
       - run: npx gatsby build
       - run: node .circleci/deploy.js
