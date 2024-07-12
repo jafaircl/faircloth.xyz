@@ -1,0 +1,53 @@
+---
+import Card from "../components/Card.astro";
+import Layout from "../layouts/Layout.astro";
+
+const allPosts = await Astro.glob("./blog/*.md");
+---
+
+<Layout
+  title="Jonathan Faircloth"
+  description="Jonathan is a software engineer in Raleigh, NC"
+>
+  <h1>Jonathan Faircloth</h1>
+  <p>
+    <a class="social-link" href="https://www.twitter.com/jafaircl">@jafaircl</a>
+    &nbsp;
+    <a class="social-link" href="https://www.github.com/jafaircl">Github</a>
+  </p>
+  <br />
+  <!-- TODO: previous work -->
+  <p>
+    Building software things. Here's some of the stuff I've learned that might
+    be helpful to you:
+  </p>
+  <ul>
+    {
+      allPosts
+        // filter out drafts
+        .filter((post) => post.frontmatter.published === true)
+        // sort by date
+        .sort(
+          (a, b) =>
+            new Date(b.frontmatter.date).getTime() -
+            new Date(a.frontmatter.date).getTime()
+        )
+        .map((post) => (
+          <li>
+            <Card
+              href={post.url as string}
+              title={post.frontmatter.title}
+              body={post.frontmatter.description}
+              date={post.frontmatter.date}
+            />
+          </li>
+        ))
+    }
+  </ul>
+</Layout>
+
+<style>
+  .social-link {
+    font-weight: bold;
+  }
+</style>

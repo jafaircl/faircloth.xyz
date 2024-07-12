@@ -1,0 +1,24 @@
+---
+import Meta from "../components/Meta.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Meta title={title} description={description} />
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+    <style></style>
+  </body>
+</html>

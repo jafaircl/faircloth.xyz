@@ -1,0 +1,46 @@
+---
+import { formatFrontmatterDate } from "../utils";
+
+interface Props {
+  title: string;
+  body: string;
+  href: string;
+  date: string;
+}
+
+const { href, title, body, date } = Astro.props;
+---
+
+<div class="link-card">
+  <a href={href}>
+    <p>
+      {title}
+      <span>&rarr;</span>
+    </p>
+    <p>
+      {body}
+    </p>
+    <p>{formatFrontmatterDate(date)}</p>
+  </a>
+</div>
+<style>
+  .link-card {
+    list-style: none;
+    display: flex;
+    padding: 1px;
+  }
+  .link-card > a {
+    width: 100%;
+    text-decoration: none;
+    line-height: 1.4;
+    padding: 1rem 0;
+  }
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  p {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+</style>
