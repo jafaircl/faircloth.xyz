@@ -9,7 +9,14 @@ const { frontmatter } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
-    <Meta title={frontmatter.title} description={frontmatter.description} />
+    <Meta
+      title={frontmatter.title}
+      description={frontmatter.description}
+      image={new URL(
+        frontmatter?.image?.url ?? "/images/default-logo.png",
+        Astro.url
+      ).toString()}
+    />
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->
