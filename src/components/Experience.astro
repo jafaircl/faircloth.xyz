@@ -1,0 +1,33 @@
+---
+import { formatExperienceDate } from "../utils";
+
+interface Props {
+  title: string;
+  company: string;
+  startDate: Date;
+  endDate: Date;
+  bullets: string[];
+  isPresent: boolean;
+}
+
+const { title, company, startDate, endDate, bullets, isPresent } = Astro.props;
+---
+
+<div class="experience-card">
+  <h3>{title}</h3>
+  <h4>{company}</h4>
+  <p>
+    {formatExperienceDate(startDate)} - {
+      isPresent ? "Present" : formatExperienceDate(endDate)
+    }
+  </p>
+  <ul class="experience-list">
+    {bullets.map((bullet) => <li>{bullet}</li>)}
+  </ul>
+</div>
+<style>
+  .experience-list {
+    list-style: disc;
+    margin-left: 1rem;
+  }
+</style>

@@ -1,0 +1,135 @@
+---
+import Experience from "../components/Experience.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Jonathan Faircloth"
+  description="Jonathan is a software engineer in Raleigh, NC"
+>
+  <section>
+    <h1>Jonathan Faircloth</h1>
+    <p>Software Engineer in Raleigh, NC</p>
+    <a href="mailto:jonathan@faircloth.xyz">jonathan@faircloth.xyz</a>
+  </section>
+  <section>
+    <h2>Experience</h2>
+    <ul>
+      <li>
+        <Experience
+          title="Senior Software Engineer"
+          company="WCG Clinical Services"
+          startDate={new Date("2023-02-02")}
+          endDate={new Date()}
+          bullets={[
+            "Architected and maintained full stack applications using a variety of technologies including TypeScript, Angular, Python, C#, Swift, Kotlin, REST, GraphQL and gRPC",
+            "Led code reviews and provided technical guidance to ensure high-quality codebases and provide mentorship to junior developers",
+            "Worked closely with product managers and designers to define requirements and provide technical guidance on implementation",
+            "Worked with cross-functional teams to design, develop and deploy organization-wide frameworks and tools to improve developer productivity and code quality",
+            "Collaborated with DevOps engineers to create CI/CD pipelines to ensure fast and reliable deployments",
+          ]}
+          isPresent={true}
+        />
+      </li>
+      <li>
+        <Experience
+          title="Software Engineer"
+          company="WCG Clinical Services"
+          startDate={new Date("2020-03-02")}
+          endDate={new Date("2023-02-02")}
+          bullets={[
+            "Created new APIs, user interfaces and features in new and existing products using TypeScript, Angular, Node.js, C# and asynchronous microservices architectures",
+            "Developed software and systems to meet all end-user, functional, performance and regulatory requirements",
+            "Created source code, automated tests, software builds and managed deployments",
+            "Reviewed and helped to maintain software documentation to ensure clear communication, accuracy and consistency",
+          ]}
+          isPresent={false}
+        />
+      </li>
+      <li>
+        <Experience
+          title="Advertising Technology Developer"
+          company="Healthgrades"
+          startDate={new Date("2018-03-02")}
+          endDate={new Date("2020-03-02")}
+          bullets={[
+            "Developed internal apps and tools to streamline the creation of marketing campaigns and improve their effectiveness",
+            "Created efficient user experiences using HTML, CSS, Python, JavaScript, Node.js, Angular and React",
+            "Improved marketing campaigns by utilizing machine learning frameworks such as TensorFlow, Watson, and Wit.ai as well as multi-variate testing tools",
+            "Created AdWords Scripts and microservices to manage marketing campaigns across marketing channels",
+          ]}
+          isPresent={false}
+        />
+      </li>
+      <li>
+        <Experience
+          title="Digital Marketing Analyst"
+          company="Healthgrades"
+          startDate={new Date("2016-02-02")}
+          endDate={new Date("2018-03-02")}
+          bullets={[
+            "Built and implemented Google AdWords, Google Display Network, Bing Ads, Facebook, Instagram and other social media advertising campaigns",
+            "Implemented Google Analytics, Google Tag Manager and Facebook Pixels to ensure successful SEM, SEO and Social Media campaigns",
+            "Used machine learning to suggest account improvements and automate common management tasks",
+            "Created Angular, JavaScript and PHP tools to assist in client account reporting, implementation and performance predictions",
+          ]}
+          isPresent={false}
+        />
+      </li>
+      <li>
+        <Experience
+          title="Digital Sales Executive"
+          company="Healthgrades"
+          startDate={new Date("2015-01-02")}
+          endDate={new Date("2016-02-02")}
+          bullets={[
+            "Built relationships with local business owners to help them drive new customers through digital advertising",
+            "Ran successful search engine marketing, online display and direct mail campaigns for clients",
+            "Assisted on sales calls with team members as a digital media subject matter expert",
+            "Provided performance reporting to clients on a monthly basis",
+          ]}
+          isPresent={false}
+        />
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <ul>
+      <li>
+        <h4>Bachelor of Arts in Sociology</h4>
+        <p>NC State University&nbsp;&middot;&nbsp;2010</p>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <ul class="horizontal-list">
+      <li>TypeScript&nbsp;&middot;&nbsp;</li>
+      <li>HTML&nbsp;&middot;&nbsp;</li>
+      <li>CSS&nbsp;&middot;&nbsp;</li>
+      <li>Python&nbsp;&middot;&nbsp;</li>
+      <li>C#&nbsp;&middot;&nbsp;</li>
+      <li>Go&nbsp;&middot;&nbsp;</li>
+      <li>Swift&nbsp;&middot;&nbsp;</li>
+      <li>Kotlin&nbsp;&middot;&nbsp;</li>
+      <li>Angular&nbsp;&middot;&nbsp;</li>
+      <li>React&nbsp;&middot;&nbsp;</li>
+      <li>Git</li>
+    </ul>
+  </section>
+</Layout>
+<style>
+  .experience-list {
+    list-style: disc;
+    padding: 0;
+  }
+
+  .horizontal-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+</style>

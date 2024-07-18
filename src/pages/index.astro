@@ -1,5 +1,6 @@
 ---
 import Card from "../components/Card.astro";
+import Header from "../components/Header.astro";
 import Layout from "../layouts/Layout.astro";
 
 const allPosts = await Astro.glob("./blog/*.md");
@@ -9,12 +10,7 @@ const allPosts = await Astro.glob("./blog/*.md");
   title="Jonathan Faircloth"
   description="Jonathan is a software engineer in Raleigh, NC"
 >
-  <h1>Jonathan Faircloth</h1>
-  <p>
-    <a class="social-link" href="https://www.twitter.com/jafaircl">@jafaircl</a>
-    &nbsp;
-    <a class="social-link" href="https://www.github.com/jafaircl">Github</a>
-  </p>
+  <Header />
   <br />
   <!-- TODO: previous work -->
   <p>
@@ -47,7 +43,5 @@ const allPosts = await Astro.glob("./blog/*.md");
 </Layout>
 
 <style>
-  .social-link {
-    font-weight: bold;
-  }
+  /* place styles here */
 </style>

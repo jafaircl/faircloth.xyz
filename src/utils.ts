@@ -5,3 +5,10 @@ export function formatFrontmatterDate(date: string) {
     day: "numeric",
   });
 }
+
+export function formatExperienceDate(date: Date) {
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+  });
+}
