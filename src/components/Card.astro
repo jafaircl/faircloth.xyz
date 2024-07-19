@@ -12,24 +12,23 @@ const { href, title, body, date } = Astro.props;
 ---
 
 <div class="link-card">
-  <a href={href}>
-    <p>
+  <p>
+    <a href={href}>
       {title}
       <span>&rarr;</span>
-    </p>
-    <p>
-      {body}
-    </p>
-    <p>{formatFrontmatterDate(date)}</p>
-  </a>
+    </a>
+  </p>
+  <p>
+    {body}
+  </p>
+  <p>{formatFrontmatterDate(date)}</p>
 </div>
 <style>
   .link-card {
     list-style: none;
-    display: flex;
-    padding: 1px;
+    padding: 1rem 0;
   }
-  .link-card > a {
+  /* .link-card > a {
     width: 100%;
     text-decoration: none;
     line-height: 1.4;
@@ -42,5 +41,5 @@ const { href, title, body, date } = Astro.props;
   p {
     margin-top: 0.5rem;
     margin-bottom: 0;
-  }
+  } */
 </style>
