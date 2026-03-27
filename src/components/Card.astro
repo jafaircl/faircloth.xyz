@@ -7,19 +7,20 @@ interface Props {
   href: string;
   date: string | Date;
   tags?: string[];
+  slug?: string;
 }
 
-const { href, title, body, date, tags = [] } = Astro.props;
+const { href, title, body, date, tags = [], slug } = Astro.props;
 ---
 
-<a href={href} class="card">
+<a href={href} class="card" transition:name={slug ? `card-${slug}` : undefined}>
   <div class="card-content">
-    <h3 class="card-title">{title}</h3>
-    <p class="card-body">{body}</p>
+    <h3 class="card-title" transition:name={slug ? `card-title-${slug}` : undefined}>{title}</h3>
+    <p class="card-body" transition:name={slug ? `card-desc-${slug}` : undefined}>{body}</p>
     <div class="card-footer">
-      <time datetime={new Date(date).toISOString()}>{formatFrontmatterDate(date)}</time>
+      <time datetime={new Date(date).toISOString()} transition:name={slug ? `card-date-${slug}` : undefined}>{formatFrontmatterDate(date)}</time>
       {tags.length > 0 && (
-        <div class="card-tags">
+        <div class="card-tags" transition:name={slug ? `card-tags-${slug}` : undefined}>
           {tags.slice(0, 3).map(tag => (
             <span class="tag">{tag}</span>
           ))}

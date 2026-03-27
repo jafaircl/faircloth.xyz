@@ -162,3 +162,28 @@ code {
   border-radius: 0.5rem;
   margin: 1.5rem 0;
 }
+
+/* ===== View Transition Animations ===== */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-4px); }
+}
+
+::view-transition-old(root) {
+  animation: fade-out 0.2s ease-in forwards;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Blog card -> post morph: let the browser interpolate size/position */
+::view-transition-group(*) {
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

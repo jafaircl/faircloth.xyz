@@ -1,4 +1,4 @@
-import { executeCommand, getCommandNames, type CommandResult } from './commands';
+import { executeCommand, getCommandNames, clearPendingTimeouts, type CommandResult } from './commands';
 import { CommandHistory } from './history';
 import '../../styles/terminal.css';
 
@@ -88,6 +88,7 @@ export function initTerminal(container: HTMLElement) {
 
   function handleCommand(cmd: string) {
     const trimmed = cmd.trim();
+    clearPendingTimeouts();
     appendCommandLine(trimmed);
     history.push(trimmed);
 

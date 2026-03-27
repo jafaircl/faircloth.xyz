@@ -5,6 +5,14 @@ export interface CommandResult {
 
 type CommandHandler = (args: string[]) => CommandResult | CommandResult[];
 
+// Track pending timeouts so they can be cancelled between commands
+const pendingTimeouts: ReturnType<typeof setTimeout>[] = [];
+
+export function clearPendingTimeouts() {
+  pendingTimeouts.forEach(id => clearTimeout(id));
+  pendingTimeouts.length = 0;
+}
+
 const PAGES = [
   { name: 'blog', path: '/blog', description: 'Articles on software engineering' },
   { name: 'projects', path: '/projects', description: 'Things I\'ve built' },
@@ -178,21 +186,22 @@ const commands: Record<string, CommandHandler> = {
       const lines: CommandResult[] = [
         { html: 'Deleting everything...', className: 'error' },
       ];
-      setTimeout(() => {
-        const output = document.querySelector('.terminal-output');
+      pendingTimeouts.push(setTimeout(() => {
+        const output = document.querySelector('.terminal-output-inner');
         if (output) {
+          const outputScroller = document.querySelector('.terminal-output');
           const msgs = ['Removing node_modules/...', 'Removing .git/...', 'Removing system32/...', 'Just kidding. 😄'];
           msgs.forEach((msg, i) => {
-            setTimeout(() => {
+            pendingTimeouts.push(setTimeout(() => {
               const line = document.createElement('div');
               line.className = `terminal-line ${i < 3 ? 'error' : 'accent'}`;
               line.textContent = msg;
               output.appendChild(line);
-              output.scrollTop = output.scrollHeight;
-            }, (i + 1) * 500);
+              if (outputScroller) outputScroller.scrollTop = outputScroller.scrollHeight;
+            }, (i + 1) * 500));
           });
         }
-      }, 100);
+      }, 100));
       return lines;
     }
     return { html: 'rm: missing operand', className: 'error' };

@@ -48,6 +48,7 @@ const projects = (await getCollection('projects'))
               href={`/blog/${post.id}`}
               date={post.data.date}
               tags={post.data.tags}
+              slug={post.id}
             />
           ))}
         </div>
