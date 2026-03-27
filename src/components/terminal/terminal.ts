@@ -30,22 +30,22 @@ export function initTerminal(container: HTMLElement) {
         <button class="terminal-exit" id="terminal-exit-btn">Exit Terminal</button>
       </div>
       <div class="terminal-output" id="terminal-output">
-        <div class="terminal-output-spacer"></div>
         <div class="terminal-output-inner" id="terminal-output-inner"></div>
-      </div>
-      <div class="terminal-input-line">
-        <span class="terminal-prompt">${PROMPT}</span>
-        <input
-          type="text"
-          class="terminal-input"
-          id="terminal-input"
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-          spellcheck="false"
-          placeholder="Type a command..."
-          aria-label="Terminal input"
-        />
+        <div class="terminal-input-line">
+          <span class="terminal-prompt">${PROMPT}</span>
+          <input
+            type="text"
+            class="terminal-input"
+            id="terminal-input"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="Type a command..."
+            aria-label="Terminal input"
+          />
+        </div>
+        <div class="terminal-scroll-anchor" id="terminal-scroll-anchor" aria-hidden="true"></div>
       </div>
     </div>
   `;
@@ -54,9 +54,32 @@ export function initTerminal(container: HTMLElement) {
   const output = document.getElementById('terminal-output-inner')!;
   const input = document.getElementById('terminal-input') as HTMLInputElement;
   const exitBtn = document.getElementById('terminal-exit-btn')!;
+  const scrollAnchor = document.getElementById('terminal-scroll-anchor')!;
+  let shouldAutoScroll = true;
+
+  function isNearBottom() {
+    const threshold = 24;
+    return outputScroller.scrollTop + outputScroller.clientHeight >= outputScroller.scrollHeight - threshold;
+  }
+
+  function scrollToBottom(force: boolean = false) {
+    if (!force && !shouldAutoScroll) return;
+    scrollAnchor.scrollIntoView({ block: 'end' });
+  }
+
+  outputScroller.addEventListener('scroll', () => {
+    shouldAutoScroll = isNearBottom();
+  });
+
+  const observer = new MutationObserver(() => {
+    scrollToBottom();
+  });
+
+  observer.observe(output, { childList: true });
 
   // Exit button
   exitBtn.addEventListener('click', () => {
+    observer.disconnect();
     (window as any).switchUIMode?.('standard');
   });
 
@@ -73,7 +96,7 @@ export function initTerminal(container: HTMLElement) {
     line.className = `terminal-line ${className}`;
     line.innerHTML = html;
     output.appendChild(line);
-    outputScroller.scrollTop = outputScroller.scrollHeight;
+    scrollToBottom();
   }
 
   function appendCommandLine(cmd: string) {
@@ -91,9 +114,11 @@ export function initTerminal(container: HTMLElement) {
     clearPendingTimeouts();
     appendCommandLine(trimmed);
     history.push(trimmed);
+    shouldAutoScroll = true;
 
     if (trimmed === 'clear') {
       output.replaceChildren();
+      scrollToBottom(true);
       return;
     }
 
@@ -147,6 +172,7 @@ export function initTerminal(container: HTMLElement) {
       if (cmd.trim()) {
         handleCommand(cmd);
       }
+      scrollToBottom(true);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       const prev = history.up(input.value);
@@ -174,6 +200,7 @@ export function initTerminal(container: HTMLElement) {
       BOOT_LINES.forEach(line => {
         if (line.text) appendLine(line.text, line.className || 'output');
       });
+      scrollToBottom(true);
       input.focus();
       return;
     }
@@ -188,6 +215,7 @@ export function initTerminal(container: HTMLElement) {
     }
 
     input.disabled = false;
+    scrollToBottom(true);
     input.focus();
   }
 

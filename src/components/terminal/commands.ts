@@ -128,7 +128,7 @@ const commands: Record<string, CommandHandler> = {
       return [
         { html: '' },
         { html: 'This site is built with Astro, Tailwind CSS, and TypeScript.', className: 'muted' },
-        { html: 'The terminal UI is vanilla TypeScript — no framework needed.' },
+        { html: 'The terminal UI is vanilla TypeScript' },
         { html: 'Deployed on Cloudflare Pages.' },
         { html: '' },
         { html: 'Source: <a href="https://github.com/jafaircl/faircloth.xyz">github.com/jafaircl/faircloth.xyz</a>', className: 'muted' },
@@ -190,7 +190,7 @@ const commands: Record<string, CommandHandler> = {
         const output = document.querySelector('.terminal-output-inner');
         if (output) {
           const outputScroller = document.querySelector('.terminal-output');
-          const msgs = ['Removing node_modules/...', 'Removing .git/...', 'Removing system32/...', 'Just kidding. 😄'];
+          const msgs = ['Removing node_modules/...', 'Removing .git/...', 'Removing ~/Applications...', 'Just kidding. 😄'];
           msgs.forEach((msg, i) => {
             pendingTimeouts.push(setTimeout(() => {
               const line = document.createElement('div');
