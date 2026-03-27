@@ -1,0 +1,197 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Card from '../components/Card.astro';
+
+const posts = (await getCollection('blog'))
+  .filter(post => post.data.published)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const projects = (await getCollection('projects'))
+  .filter(p => p.data.published)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Jonathan Faircloth" description="Senior Software Engineer in Raleigh, NC">
+  <!-- Terminal Mode (default) -->
+  <div id="terminal-mode">
+    <div id="terminal-container"></div>
+  </div>
+
+  <!-- Standard Mode (hidden by default) -->
+  <div id="standard-mode" style="display: none;">
+    <Header />
+    <main>
+      <section class="hero">
+        <h1>Jonathan Faircloth</h1>
+        <p class="tagline">Senior Software Engineer</p>
+        <p class="intro">
+          I build software for the web. Currently working on clinical data systems.
+          I write about TypeScript, React, Angular, and whatever else I'm learning.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Recent Posts</h2>
+          <a href="/blog">View all &rarr;</a>
+        </div>
+        <div class="card-list">
+          {posts.map(post => (
+            <Card
+              title={post.data.title}
+              body={post.data.description}
+              href={`/blog/${post.id}`}
+              date={post.data.date}
+              tags={post.data.tags}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Projects</h2>
+          <a href="/projects">View all &rarr;</a>
+        </div>
+        <div class="card-list">
+          {projects.map(project => (
+            <div class="project-mini">
+              <h3>{project.data.title}</h3>
+              <p>{project.data.description}</p>
+              <div class="project-tags">
+                {project.data.tags.map(tag => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </div>
+
+  <script>
+    function initHomepage() {
+      const terminalMode = document.getElementById('terminal-mode');
+      const standardMode = document.getElementById('standard-mode');
+      if (!terminalMode || !standardMode) return;
+
+      const uiMode = localStorage.getItem('ui-mode') || 'terminal';
+
+      if (uiMode === 'standard') {
+        terminalMode.style.display = 'none';
+        standardMode.style.display = '';
+      } else {
+        terminalMode.style.display = '';
+        standardMode.style.display = 'none';
+        // Terminal will be initialized by the terminal module
+        import('../components/terminal/terminal.ts').then(({ initTerminal }) => {
+          initTerminal(document.getElementById('terminal-container')!);
+        });
+      }
+    }
+
+    initHomepage();
+    document.addEventListener('astro:after-swap', initHomepage);
+
+    // Global function for switching modes
+    (window as any).switchUIMode = (mode: string) => {
+      localStorage.setItem('ui-mode', mode);
+      window.location.reload();
+    };
+  </script>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 3rem 0 2rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .tagline {
+    font-size: 1.25rem;
+    color: var(--color-fg-muted);
+    margin: 0.5rem 0;
+  }
+
+  .intro {
+    font-size: 1.05rem;
+    color: var(--color-fg-muted);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  .section {
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+
+  .section-header h2 {
+    margin: 0;
+  }
+
+  .section-header a {
+    font-size: 0.875rem;
+  }
+
+  .card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .project-mini {
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    background-color: var(--color-card);
+  }
+
+  .project-mini h3 {
+    font-size: 1.05rem;
+    margin: 0 0 0.375rem;
+  }
+
+  .project-mini p {
+    font-size: 0.875rem;
+    color: var(--color-fg-muted);
+    margin: 0 0 0.75rem;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 0.375rem;
+  }
+
+  .tag {
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+  }
+
+  #terminal-mode {
+    min-height: 100vh;
+  }
+</style>

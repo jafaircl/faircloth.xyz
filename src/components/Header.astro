@@ -1,0 +1,204 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const pathname = Astro.url.pathname;
+const navLinks = [
+  { href: '/blog', label: 'Blog' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/resume', label: 'Resume' },
+];
+---
+
+<header class="site-header">
+  <nav class="nav" aria-label="Main navigation">
+    <a href="/" class="logo">faircloth.xyz</a>
+
+    <button
+      id="nav-toggle"
+      class="nav-toggle"
+      aria-label="Toggle navigation"
+      title="Toggle navigation"
+      aria-expanded="false"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line class="bar bar-1" x1="3" y1="6" x2="21" y2="6" />
+        <line class="bar bar-2" x1="3" y1="12" x2="21" y2="12" />
+        <line class="bar bar-3" x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+
+    <div class="nav-links" id="nav-links">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class:list={['nav-link', { active: pathname.startsWith(link.href) }]}
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="nav-actions">
+        <ThemeToggle />
+        <a
+          href="/"
+          id="terminal-enter-btn"
+          class="terminal-btn"
+          aria-label="Enter terminal"
+          title="Enter terminal"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  function initHeader() {
+    const toggle = document.getElementById('nav-toggle');
+    const links = document.getElementById('nav-links');
+    const terminalBtn = document.getElementById('terminal-enter-btn');
+
+    if (toggle && links && !toggle.dataset.bound) {
+      toggle.dataset.bound = 'true';
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        links.classList.toggle('open');
+      });
+    }
+
+    if (terminalBtn && !terminalBtn.dataset.bound) {
+      terminalBtn.dataset.bound = 'true';
+      terminalBtn.addEventListener('click', (event) => {
+        localStorage.setItem('ui-mode', 'terminal');
+
+        if (window.location.pathname === '/') {
+          event.preventDefault();
+          (window as any).switchUIMode?.('terminal');
+        }
+      });
+    }
+  }
+
+  initHeader();
+  document.addEventListener('astro:after-swap', initHeader);
+</script>
+
+<h1>Jonathan Faircloth</h1>
+<p>
+  <a class="social-link" href="https://www.github.com/jafaircl">Github</a>
+</p>
+<style>
+  .site-header {
+    padding: 0;
+    max-width: 100%;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-nav-bg);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-fg);
+    font-family: var(--font-mono);
+  }
+
+  .logo:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-fg);
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.875rem;
+    color: var(--color-fg-muted);
+    font-weight: 500;
+    transition: color 0.15s ease;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--color-fg);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0.5rem;
+  }
+
+  .terminal-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .terminal-btn:hover {
+    color: var(--color-fg);
+    border-color: var(--color-fg-muted);
+  }
+
+  @media (max-width: 640px) {
+    .nav-toggle {
+      display: block;
+    }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background-color: var(--color-nav-bg);
+      border-bottom: 1px solid var(--color-border);
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .nav-links.open {
+      display: flex;
+    }
+
+    .nav-actions {
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+  }
+</style>

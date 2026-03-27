@@ -1,14 +1,13 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true,
-    "module": "commonjs",
-    "target": "es6",
-    "jsx": "react",
-    "lib": ["dom", "es2015", "es2017"],
-    "allowJs": true
-  },
-  "include": ["./src/**/*"]
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"],
+      "@content/*": ["src/content/*"]
+    }
+  }
 }

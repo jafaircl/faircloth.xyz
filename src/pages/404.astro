@@ -1,0 +1,71 @@
+---
+import StandardLayout from "../layouts/StandardLayout.astro";
+---
+
+<StandardLayout
+  title="404"
+  description="Page not found"
+>
+  <div class="not-found">
+    <h1>404</h1>
+    <p class="message">This page doesn't exist. Maybe it never did.</p>
+    <div class="actions">
+      <a href="/" class="home-link">Go home</a>
+      <a href="/blog" class="blog-link">Read the blog</a>
+    </div>
+  </div>
+</StandardLayout>
+
+<style>
+  .not-found {
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  .not-found h1 {
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--color-fg-muted);
+    margin: 0;
+    line-height: 1;
+    font-family: var(--font-mono);
+  }
+
+  .message {
+    font-size: 1.15rem;
+    color: var(--color-fg-muted);
+    margin: 1rem 0 2rem;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .home-link, .blog-link {
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .home-link {
+    background-color: var(--color-accent);
+    color: white;
+  }
+
+  .home-link:hover {
+    background-color: var(--color-accent-hover);
+    color: white;
+  }
+
+  .blog-link {
+    border: 1px solid var(--color-border);
+    color: var(--color-fg);
+  }
+
+  .blog-link:hover {
+    border-color: var(--color-fg-muted);
+  }
+</style>

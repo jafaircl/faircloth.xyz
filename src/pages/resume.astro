@@ -1,0 +1,221 @@
+---
+import Experience from "../components/Experience.astro";
+import StandardLayout from "../layouts/StandardLayout.astro";
+---
+
+<StandardLayout
+  title="Resume"
+  description="Jonathan Faircloth - Senior Software Engineer in Raleigh, NC"
+>
+  <div class="resume">
+    <header class="resume-header">
+      <h1>Jonathan Faircloth</h1>
+      <p class="resume-title">Senior Software Engineer</p>
+      <div class="resume-contact">
+        <a href="mailto:jonathan@faircloth.xyz">jonathan@faircloth.xyz</a>
+        <span>&middot;</span>
+        <span>Raleigh, NC</span>
+        <span>&middot;</span>
+        <a href="https://github.com/jafaircl" target="_blank" rel="noopener noreferrer">github.com/jafaircl</a>
+      </div>
+      <button class="print-btn no-print" onclick="window.print()">
+        Print / Save PDF
+      </button>
+    </header>
+
+    <section class="resume-section">
+      <h2>Experience</h2>
+      <Experience
+        title="Senior Software Engineer"
+        company="WCG Clinical Services"
+        startDate={new Date("2023-02-02")}
+        endDate={new Date()}
+        bullets={[
+          "Reduced time spent translating and propagating data between systems 30% by architecting and implementing applications using Angular, Node, Python, Apache Kafka, GraphQL, REST and gRPC to facilitate communication between legacy products in multiple business units",
+          "Implemented features to synchronize clinical data and allow end users to access embedded business intelligence reports in web, iOS and Android applications using TypeScript, Swift, Kotlin, C# and PowerBI",
+          "Directed comprehensive code reviews, ensuring adherence to best practices and high-quality standards; mentored 4 junior developers, resulting in a 35% reduction in bug reports",
+          "Worked closely with product managers, designers and DevOps engineers to define requirements, provide technical guidance on implementation, and ensure automated unit and end to end testing and deployment processes were in place through the use of CI/CD pipelines",
+          "Partnered with cross-functional teams to design, develop, and deploy organization-wide frameworks and tools; enhanced automated testing adoption by 50%, improved developer productivity by 30%, and boosted code quality by 25%",
+        ]}
+        isPresent={true}
+      />
+      <Experience
+        title="Software Engineer"
+        company="WCG Clinical Services"
+        startDate={new Date("2020-03-02")}
+        endDate={new Date("2023-02-02")}
+        bullets={[
+          "Reduced developer workload 15% by allowing business analysts to create and maintain basic end-user products using a UI built with Angular, Node, and Serverless Functions",
+          "Streamlined the security and convenience of user authentication by leading the transition from on-premise Active Directory to Azure AD B2C, Azure AD, and Okta",
+          "Standardized and revised software documentation across 5+ projects, enhancing clarity and accuracy, which improved team productivity by 20% and reduced onboarding time for new developers by 15%",
+        ]}
+        isPresent={false}
+      />
+      <Experience
+        title="Advertising Technology Developer"
+        company="Healthgrades"
+        startDate={new Date("2018-03-02")}
+        endDate={new Date("2020-03-02")}
+        bullets={[
+          "Enhanced advertising campaign lead generation efficiency 10% through media mix optimization and A/B testing by building an application using Angular, Node, and Python",
+          "Eliminated the need for analysts to compile client reporting by creating Google Data Studio dashboard templates and custom JavaScript data connectors for Google Analytics, Google AdWords, Bing Ads, Facebook Ads, and other platforms",
+          "Improved analyst efficiency by using machine learning and AI tools to generate new keyword successions based on seed keywords and past performance, monitor display advertising placements, assist with ad copy creation, and determine optimal bidding strategies with TensorFlow, IBM Watson and other tools",
+          "Reduced time to market for new advertising campaigns through the use of automated keyword-optimized React static landing page generation and direct campaign management through the Google Ads, Bing Ads, Twitter Ads, and Facebook Ads APIs from a single dashboard",
+        ]}
+        isPresent={false}
+      />
+      <Experience
+        title="Digital Marketing Analyst"
+        company="Healthgrades"
+        startDate={new Date("2016-02-02")}
+        endDate={new Date("2018-03-02")}
+        bullets={[
+          "Reduced the team's time to launch new Google Ads campaigns 20% by creating a tool to rapidly scaffold campaigns with supplied keywords, ad copy and targeting",
+          "Implemented search engine marketing campaigns for Google, Bing and Yahoo Search, and display and social media campaigns across Google Display Network, Facebook, Instagram, and multiple DSPs",
+          "Wrote Google AdWords Scripts using JavaScript to reduce time spent on common management tasks such as performance monitoring, ad rotation, and bid optimization by 25%",
+          "Created and managed campaign analytics tracking for clients using Google Tag Manager, Google Analytics, Facebook Pixels, and other platforms",
+        ]}
+        isPresent={false}
+      />
+      <Experience
+        title="Digital Sales Executive"
+        company="Healthgrades"
+        startDate={new Date("2015-01-02")}
+        endDate={new Date("2016-02-02")}
+        bullets={[
+          "Built relationships with local business owners to help them drive new customers through digital advertising",
+          "Ran successful search engine marketing, online display and direct mail campaigns for clients",
+          "Assisted on sales calls with team members as a digital media subject matter expert",
+          "Provided performance reporting to clients on a monthly basis",
+        ]}
+        isPresent={false}
+      />
+    </section>
+
+    <section class="resume-section">
+      <h2>Education</h2>
+      <div class="education-item">
+        <h3>Bachelor of Arts in Sociology</h3>
+        <p class="education-meta">NC State University &middot; 2010</p>
+      </div>
+    </section>
+
+    <section class="resume-section">
+      <h2>Skills</h2>
+      <div class="skills-list">
+        {["TypeScript", "HTML", "CSS", "Python", "C#", "Go", "Swift", "Kotlin", "Angular", "React", "Git"].map(skill => (
+          <span class="skill-tag">{skill}</span>
+        ))}
+      </div>
+    </section>
+  </div>
+</StandardLayout>
+
+<style>
+  .resume {
+    padding-bottom: 3rem;
+  }
+
+  .resume-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .resume-header h1 {
+    margin: 0 0 0.25rem;
+  }
+
+  .resume-title {
+    font-size: 1.15rem;
+    color: var(--color-fg-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .resume-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--color-fg-muted);
+  }
+
+  .print-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .print-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .resume-section {
+    margin-bottom: 2rem;
+  }
+
+  .resume-section h2 {
+    font-size: 1.35rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 0.5rem;
+  }
+
+  .education-item h3 {
+    font-size: 1.05rem;
+    margin: 1rem 0 0.25rem;
+  }
+
+  .education-meta {
+    font-size: 0.9rem;
+    color: var(--color-fg-muted);
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .skill-tag {
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    color: var(--color-fg);
+  }
+
+  /* Print styles */
+  @media print {
+    .no-print { display: none !important; }
+
+    .resume {
+      font-size: 11pt;
+      color: #000;
+    }
+
+    .resume-header {
+      border-bottom: 1px solid #ccc;
+    }
+
+    .resume-section h2 {
+      border-bottom: 1px solid #ccc;
+    }
+
+    .skill-tag {
+      border: 1px solid #ccc;
+      background: none;
+      color: #000;
+    }
+  }
+</style>

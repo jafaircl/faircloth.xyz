@@ -1,0 +1,116 @@
+---
+import { getCollection } from 'astro:content';
+import StandardLayout from '../../layouts/StandardLayout.astro';
+import Card from '../../components/Card.astro';
+
+const posts = (await getCollection('blog'))
+  .filter(post => post.data.published)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const allTags = [...new Set(posts.flatMap(post => post.data.tags))].sort();
+---
+
+<StandardLayout title="Blog" description="Articles on software engineering, web development, and more.">
+  <div class="blog-header">
+    <h1>Blog</h1>
+    <p class="subtitle">Thoughts on software engineering, web development, and more.</p>
+  </div>
+
+  <div class="tag-filter" id="tag-filter">
+    <button class="filter-tag active" data-tag="all">All</button>
+    {allTags.map(tag => (
+      <button class="filter-tag" data-tag={tag}>{tag}</button>
+    ))}
+  </div>
+
+  <div class="posts-list">
+    {posts.map(post => (
+      <div class="post-item" data-tags={JSON.stringify(post.data.tags)}>
+        <Card
+          title={post.data.title}
+          body={post.data.description}
+          href={`/blog/${post.id}`}
+          date={post.data.date}
+          tags={post.data.tags}
+        />
+      </div>
+    ))}
+  </div>
+</StandardLayout>
+
+<script>
+  function initFilters() {
+    const buttons = document.querySelectorAll('.filter-tag');
+    const posts = document.querySelectorAll('.post-item');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tag = btn.getAttribute('data-tag');
+
+        posts.forEach(post => {
+          if (tag === 'all') {
+            (post as HTMLElement).style.display = '';
+          } else {
+            const tags = JSON.parse(post.getAttribute('data-tags') || '[]');
+            (post as HTMLElement).style.display = tags.includes(tag) ? '' : 'none';
+          }
+        });
+      });
+    });
+  }
+
+  initFilters();
+  document.addEventListener('astro:after-swap', initFilters);
+</script>
+
+<style>
+  .blog-header {
+    margin-bottom: 2rem;
+  }
+
+  .blog-header h1 {
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: var(--color-fg-muted);
+    font-size: 1.05rem;
+  }
+
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-tag {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    background: transparent;
+    color: var(--color-fg-muted);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .filter-tag:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .filter-tag.active {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: white;
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+</style>
