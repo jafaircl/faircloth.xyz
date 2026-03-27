@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: Visualizing Bayesian A/B Testing in JavaScript with Angular and Highcharts
 description: A/B Testing is a critical part of creating engaging websites and successful marketing campaigns. Learn to visualize the results using JavaScript in Angular and Highcharts.
 image:

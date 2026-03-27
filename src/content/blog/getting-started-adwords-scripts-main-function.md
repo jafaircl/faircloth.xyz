@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: 'Getting Started With AdWords Scripts: The Main Function'
 description: AdWords Scripts can make your life much easier. Routine maintenance tasks can be automated, reporting can be simplified and functionality can even be added to the AdWords platform itself! But, before we can do any of that, we need to know how to get started.
 image:

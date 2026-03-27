@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: Training Chatbots To Monitor Sensitive AdWords Display Placements
 description: Make sure your display placements are brand-safe.
 image:

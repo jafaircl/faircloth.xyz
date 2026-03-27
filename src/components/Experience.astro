@@ -14,20 +14,70 @@ const { title, company, startDate, endDate, bullets, isPresent } = Astro.props;
 ---
 
 <div class="experience-card">
-  <h3>{title}</h3>
-  <h4>{company}</h4>
-  <p>
-    {formatExperienceDate(startDate)} - {
-      isPresent ? "Present" : formatExperienceDate(endDate)
-    }
-  </p>
+  <div class="experience-header">
+    <h3>{title}</h3>
+    <span class="experience-date">
+      {formatExperienceDate(startDate)} &ndash; {isPresent ? "Present" : formatExperienceDate(endDate)}
+    </span>
+  </div>
+  <p class="experience-company">{company}</p>
   <ul class="experience-list">
     {bullets.map((bullet) => <li>{bullet}</li>)}
   </ul>
 </div>
+
 <style>
+  .experience-card {
+    padding: 1.25rem 0;
+  }
+
+  .experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .experience-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .experience-date {
+    font-size: 0.85rem;
+    color: var(--color-fg-muted);
+    white-space: nowrap;
+  }
+
+  .experience-company {
+    font-size: 0.95rem;
+    color: var(--color-accent);
+    margin: 0.25rem 0 0.75rem;
+    font-weight: 500;
+  }
+
   .experience-list {
     list-style: disc;
-    margin-left: 1rem;
+    margin-left: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-fg-muted);
+  }
+
+  .experience-list li {
+    margin-bottom: 0.375rem;
+  }
+
+  @media print {
+    .experience-card {
+      padding: 0.75rem 0;
+      break-inside: avoid;
+    }
+
+    .experience-list {
+      font-size: 0.8rem;
+    }
   }
 </style>

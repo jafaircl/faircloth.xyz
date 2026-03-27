@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: Auto-Hiding Sticky Headers with RxJS and React Hooks
 description: Use RxJS and React hooks to create a performant sticky header that hides on scroll for your React app.
 image:

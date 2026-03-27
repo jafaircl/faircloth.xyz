@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: How To Make Sure You Never Run Another Ad On Breitbart Again
 description: Some things are more important than your conversion funnel
 image:

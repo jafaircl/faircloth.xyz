@@ -6,14 +6,15 @@
   "version": "2.0.0",
   "author": "Jonathan Faircloth <jonathan@faircloth.xyz>",
   "dependencies": {
-    "@astrojs/check": "^0.8.0",
-    "astro": "^4.11.5",
-    "astro-seo": "^0.8.4",
-    "typescript": "^5.5.3"
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
+    "@tailwindcss/postcss": "^4.2.2",
+    "astro": "^6.1.0",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
   },
-  "keywords": [
-    "gatsby"
-  ],
+  "keywords": [],
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",

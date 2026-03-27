@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: Sending Performance Alerts With AdWords Scripts
 description: Performance alerts is one of the most frequently requested uses of AdWords Scripts. Let's talk about how you can automate your alerts.
 image:

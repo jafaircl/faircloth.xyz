@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: Getting Started With Google Ads Scripts
 description: Placeholder description
 image:

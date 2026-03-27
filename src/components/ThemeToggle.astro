@@ -1,0 +1,121 @@
+---
+---
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle theme"
+  title="Theme: system"
+  class="theme-toggle"
+>
+  <svg class="icon sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+  <svg class="icon moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+  <svg class="icon monitor" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+    <line x1="8" y1="21" x2="16" y2="21"></line>
+    <line x1="12" y1="17" x2="12" y2="21"></line>
+  </svg>
+</button>
+
+<script>
+  function initTheme() {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+
+    const themes = ['system', 'light', 'dark'] as const;
+    type Theme = typeof themes[number];
+
+    function getStoredTheme(): Theme {
+      return (localStorage.getItem('theme') as Theme) || 'system';
+    }
+
+    function getEffectiveTheme(theme: Theme): 'light' | 'dark' {
+      if (theme === 'system') {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      return theme;
+    }
+
+    function applyTheme(theme: Theme) {
+      const effective = getEffectiveTheme(theme);
+      document.documentElement.classList.toggle('dark', effective === 'dark');
+      toggle!.setAttribute('data-theme', theme);
+      toggle!.setAttribute('aria-label', `Theme: ${theme}`);
+      toggle!.setAttribute('title', `Theme: ${theme}`);
+    }
+
+    function cycleTheme() {
+      const current = getStoredTheme();
+      const nextIndex = (themes.indexOf(current) + 1) % themes.length;
+      const next = themes[nextIndex];
+      localStorage.setItem('theme', next);
+      applyTheme(next);
+    }
+
+    if (!toggle.dataset.bound) {
+      toggle.dataset.bound = 'true';
+      toggle.addEventListener('click', cycleTheme);
+    }
+
+    // Listen for system theme changes
+    if (!toggle.dataset.mediaBound) {
+      toggle.dataset.mediaBound = 'true';
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (getStoredTheme() === 'system') {
+          applyTheme('system');
+        }
+      });
+    }
+
+    applyTheme(getStoredTheme());
+  }
+
+  // Run on initial load and after view transitions
+  initTheme();
+  document.addEventListener('astro:after-swap', initTheme);
+</script>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-fg);
+    border-color: var(--color-fg-muted);
+  }
+
+  .icon { display: none; }
+
+  /* System default: show monitor */
+  .theme-toggle[data-theme="system"] .monitor,
+  .theme-toggle:not([data-theme]) .monitor { display: block; }
+
+  /* Light: show sun */
+  .theme-toggle[data-theme="light"] .sun { display: block; }
+
+  /* Dark: show moon */
+  .theme-toggle[data-theme="dark"] .moon { display: block; }
+</style>

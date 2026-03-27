@@ -5,41 +5,99 @@ interface Props {
   title: string;
   body: string;
   href: string;
-  date: string;
+  date: string | Date;
+  tags?: string[];
 }
 
-const { href, title, body, date } = Astro.props;
+const { href, title, body, date, tags = [] } = Astro.props;
 ---
 
-<div class="link-card">
-  <p>
-    <a href={href}>
-      {title}
-      <span>&rarr;</span>
-    </a>
-  </p>
-  <p>
-    {body}
-  </p>
-  <p>{formatFrontmatterDate(date)}</p>
-</div>
+<a href={href} class="card">
+  <div class="card-content">
+    <h3 class="card-title">{title}</h3>
+    <p class="card-body">{body}</p>
+    <div class="card-footer">
+      <time datetime={new Date(date).toISOString()}>{formatFrontmatterDate(date)}</time>
+      {tags.length > 0 && (
+        <div class="card-tags">
+          {tags.slice(0, 3).map(tag => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+  <span class="arrow">&rarr;</span>
+</a>
+
 <style>
-  .link-card {
-    list-style: none;
-    padding: 1rem 0;
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    background-color: var(--color-card);
+    color: var(--color-fg);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
   }
-  /* .link-card > a {
-    width: 100%;
-    text-decoration: none;
-    line-height: 1.4;
-    padding: 1rem 0;
+
+  .card:hover {
+    background-color: var(--color-card-hover);
+    border-color: var(--color-fg-muted);
   }
-  h2 {
+
+  .card-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
     margin: 0;
-    font-size: 1.25rem;
+    line-height: 1.4;
   }
-  p {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-  } */
+
+  .card-body {
+    margin: 0.375rem 0 0;
+    font-size: 0.875rem;
+    color: var(--color-fg-muted);
+    line-height: 1.5;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--color-fg-muted);
+  }
+
+  .card-tags {
+    display: flex;
+    gap: 0.375rem;
+  }
+
+  .tag {
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    font-size: 0.7rem;
+  }
+
+  .arrow {
+    font-size: 1.25rem;
+    color: var(--color-fg-muted);
+    margin-left: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+  }
+
+  .card:hover .arrow {
+    transform: translateX(4px);
+  }
 </style>

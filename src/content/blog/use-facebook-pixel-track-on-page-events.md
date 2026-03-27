@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: Use The Facebook Pixel To Track On-Page Events
 description: The Facebook Pixel can be used to track on-page events. Use it to measure clicks, events, microconversions or trips to off-site destinations.
 image:

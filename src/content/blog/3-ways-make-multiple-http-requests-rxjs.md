@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: 3 Ways To Make Multiple HTTP Requests Using RxJS
 description: There are many ways to make multiple HTTP requests using RxJS. Here are 3 of them.
 image:

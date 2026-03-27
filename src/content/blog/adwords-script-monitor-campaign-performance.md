@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/Blog.astro
 title: An AdWords Script To Monitor Campaign Performance
 description: Here's an AdWords Script to monitor campaign performance and send email alerts on a recurring basis. Schedule it to run daily or weekly.
 image:
