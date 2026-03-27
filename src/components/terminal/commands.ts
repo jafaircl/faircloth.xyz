@@ -75,12 +75,12 @@ const commands: Record<string, CommandHandler> = {
       { html: 'Senior Software Engineer · Raleigh, NC' },
       { html: '' },
       { html: 'I build web applications and developer tools. Currently working' },
-      { html: 'on clinical data systems at WCG. I\'ve spent my career at the' },
-      { html: 'intersection of software engineering and data — from building' },
-      { html: 'ML-powered ad tech tools to architecting distributed systems' },
-      { html: 'for healthcare.' },
+      { html: 'on clinical data systems at Thermo Fisher Scientific. I\'ve spent' },
+      { html: 'my career at the intersection of software engineering and data.' },
+      { html: 'Building ML-powered ad tech tools and architecting distributed' },
+      { html: 'systems for healthcare.' },
       { html: '' },
-      { html: '<a href="https://github.com/jafaircl">github.com/jafaircl</a>  ·  <a href="mailto:jonathan@faircloth.xyz">jonathan@faircloth.xyz</a>', className: 'muted' },
+      { html: '<a href="https://github.com/jafaircl">github.com/jafaircl</a>  ·  <a href="mailto:jonathan@faircloth.dev">jonathan@faircloth.dev</a>', className: 'muted' },
     ];
   },
 
@@ -128,7 +128,7 @@ const commands: Record<string, CommandHandler> = {
       return [
         { html: '' },
         { html: 'This site is built with Astro, Tailwind CSS, and TypeScript.', className: 'muted' },
-        { html: 'The terminal UI is vanilla TypeScript' },
+        { html: 'The terminal UI is vanilla TypeScript.' },
         { html: 'Deployed on Cloudflare Pages.' },
         { html: '' },
         { html: 'Source: <a href="https://github.com/jafaircl/faircloth.xyz">github.com/jafaircl/faircloth.xyz</a>', className: 'muted' },
@@ -218,7 +218,7 @@ const commands: Record<string, CommandHandler> = {
     return [
       { html: '' },
       { html: '  ╔═══════════════════════════╗', className: 'accent' },
-      { html: '  ║   faircloth.xyz            ║', className: 'accent' },
+      { html: '  ║   faircloth.dev            ║', className: 'accent' },
       { html: '  ╚═══════════════════════════╝', className: 'accent' },
       { html: '' },
       { html: `  <span class="help-cmd">OS</span>      Astro 6 + Cloudflare Pages` },

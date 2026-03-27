@@ -2,11 +2,11 @@ import { executeCommand, getCommandNames, clearPendingTimeouts, type CommandResu
 import { CommandHistory } from './history';
 import '../../styles/terminal.css';
 
-const PROMPT = '~/faircloth.xyz &gt;';
+const PROMPT = '~/faircloth.dev &gt;';
 
 const BOOT_LINES = [
   { text: '', delay: 0 },
-  { text: 'Welcome to faircloth.xyz', className: 'accent', delay: 100 },
+  { text: 'Welcome to faircloth.dev', className: 'accent', delay: 100 },
   { text: '', delay: 50 },
   { text: 'Jonathan Faircloth · Senior Software Engineer', delay: 80 },
   { text: '', delay: 50 },
@@ -26,7 +26,7 @@ export function initTerminal(container: HTMLElement) {
           <span class="terminal-dot yellow"></span>
           <span class="terminal-dot green"></span>
         </div>
-        <span class="terminal-title">visitor@faircloth.xyz</span>
+        <span class="terminal-title">visitor@faircloth.dev</span>
         <button class="terminal-exit" id="terminal-exit-btn">Exit Terminal</button>
       </div>
       <div class="terminal-output" id="terminal-output">

@@ -1,10 +1,10 @@
 {
-  "name": "faircloth.xyz",
+  "name": "faircloth.dev",
   "type": "module",
   "private": true,
   "description": "My personal Blog",
   "version": "2.0.0",
-  "author": "Jonathan Faircloth <jonathan@faircloth.xyz>",
+  "author": "Jonathan Faircloth <jonathan@faircloth.dev>",
   "dependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/rss": "^4.0.18",
