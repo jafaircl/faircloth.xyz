@@ -163,6 +163,10 @@ code {
   margin: 1.5rem 0;
 }
 
+.resume-page {
+  margin-top: 1rem;
+}
+
 /* ===== View Transition Animations ===== */
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(8px); }

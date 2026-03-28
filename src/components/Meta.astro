@@ -3,10 +3,11 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  includeSiteName?: boolean;
 }
 
-const { title, description, image = '/images/default-logo.png' } = Astro.props;
-const fullTitle = `${title} | faircloth.dev`;
+const { title, description, image = '/images/default-logo.png', includeSiteName = true } = Astro.props;
+const fullTitle = includeSiteName ? `${title} | faircloth.dev` : title;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const imageUrl = new URL(image, Astro.site).toString();
 ---

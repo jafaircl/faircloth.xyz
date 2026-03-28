@@ -13,6 +13,13 @@ export function formatExperienceDate(date: Date) {
   });
 }
 
+export function formatMonthYear(date: string | Date) {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+  });
+}
+
 export function estimateReadingTime(content: string): number {
   const wordsPerMinute = 200;
   const words = content.trim().split(/\s+/).length;

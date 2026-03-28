@@ -1,3 +1,6 @@
+import { resume } from "../../data/resume";
+import { formatMonthYear } from "../../utils";
+
 export interface CommandResult {
   html: string;
   className?: string;
@@ -71,16 +74,14 @@ const commands: Record<string, CommandHandler> = {
   whoami: () => {
     return [
       { html: '' },
-      { html: 'Jonathan Faircloth', className: 'accent' },
-      { html: 'Senior Software Engineer · Raleigh, NC' },
+      { html: resume.name, className: 'accent' },
+      { html: `${resume.title} · ${resume.location}` },
       { html: '' },
-      { html: 'I build web applications and developer tools. Currently working' },
-      { html: 'on clinical data systems at Thermo Fisher Scientific. I\'ve spent' },
-      { html: 'my career at the intersection of software engineering and data.' },
-      { html: 'Building ML-powered ad tech tools and architecting distributed' },
-      { html: 'systems for healthcare.' },
+      { html: 'I build web applications, internal platforms, and developer tools.' },
+      { html: 'Currently working on clinical data systems at Clario following' },
+      { html: 'the VeraSci and WCG Clinical Services acquisitions.' },
       { html: '' },
-      { html: '<a href="https://github.com/jafaircl">github.com/jafaircl</a>  ·  <a href="mailto:jonathan@faircloth.dev">jonathan@faircloth.dev</a>', className: 'muted' },
+      { html: `<a href="https://${resume.github}">${resume.github}</a>  ·  <a href="mailto:${resume.email}">${resume.email}</a>`, className: 'muted' },
     ];
   },
 
@@ -88,40 +89,53 @@ const commands: Record<string, CommandHandler> = {
     const file = args[0];
 
     if (file === 'resume.txt') {
-      return [
+      const lines: CommandResult[] = [
         { html: '' },
         { html: '═══════════════════════════════════════════', className: 'muted' },
-        { html: 'JONATHAN FAIRCLOTH', className: 'accent' },
-        { html: 'Senior Software Engineer · Raleigh, NC', className: 'muted' },
+        { html: resume.name.toUpperCase(), className: 'accent' },
+        { html: `${resume.title} · ${resume.location}`, className: 'muted' },
         { html: '═══════════════════════════════════════════', className: 'muted' },
+        { html: '' },
+        { html: 'SUMMARY', className: 'accent' },
+        { html: '───────────────────────────────────────────', className: 'muted' },
+        { html: resume.summary, className: 'muted' },
         { html: '' },
         { html: 'EXPERIENCE', className: 'accent' },
         { html: '───────────────────────────────────────────', className: 'muted' },
         { html: '' },
-        { html: 'Senior Software Engineer · WCG Clinical Services · 2023–Present' },
-        { html: '  • Reduced data translation overhead 30% with Kafka/GraphQL/gRPC', className: 'muted' },
-        { html: '  • Built cross-platform features (web, iOS, Android) in TS/Swift/Kotlin', className: 'muted' },
-        { html: '  • Mentored 4 devs, cut bug reports 35%', className: 'muted' },
-        { html: '  • Enhanced testing adoption 50%, dev productivity 30%', className: 'muted' },
-        { html: '' },
-        { html: 'Software Engineer · WCG Clinical Services · 2020–2023' },
-        { html: '  • Cut dev workload 15% via self-service UI for business analysts', className: 'muted' },
-        { html: '  • Led auth migration to Azure AD B2C / Okta', className: 'muted' },
-        { html: '' },
-        { html: 'Ad Tech Developer · Healthgrades · 2018–2020' },
-        { html: '  • 10% lead gen improvement via ML-powered optimization', className: 'muted' },
-        { html: '  • Built multi-platform campaign management dashboard', className: 'muted' },
-        { html: '' },
+      ];
+
+      resume.employers.forEach((employer) => {
+        lines.push({ html: employer.companyLine });
+        lines.push({ html: `  ${employer.location}`, className: 'muted' });
+
+        employer.roles.forEach((role) => {
+          const dateRange = `${formatMonthYear(role.startDate)}–${role.endDate ? formatMonthYear(role.endDate) : 'Present'}`;
+          lines.push({ html: '' });
+          lines.push({ html: `  ${role.title} · ${dateRange}` });
+
+          role.bullets.slice(0, 3).forEach((bullet) => {
+            lines.push({ html: `    • ${bullet}`, className: 'muted' });
+          });
+        });
+
+        lines.push({ html: '' });
+      });
+
+      lines.push(
         { html: 'SKILLS', className: 'accent' },
         { html: '───────────────────────────────────────────', className: 'muted' },
-        { html: 'TypeScript · Python · C# · Go · Angular · React · Kafka · GraphQL · Git' },
+        { html: resume.skillGroups.map((group) => `${group.name}: ${group.skills.join(', ')}`).join('  |  ') },
         { html: '' },
         { html: 'EDUCATION', className: 'accent' },
         { html: '───────────────────────────────────────────', className: 'muted' },
-        { html: 'BA Sociology · NC State University · 2010' },
+        { html: `${resume.education.degree} · ${resume.education.school} · ${resume.education.graduationYear}` },
         { html: '' },
-        { html: 'Full resume: <a href="/resume">/resume</a>', className: 'muted' },
-      ];
+        { html: 'Full resume: <a href="/resume">/resume</a> · Print view: <a href="/resume-print">/resume-print</a>', className: 'muted' },
+        { html: 'Download TXT: <a href="/jonathan-faircloth-resume.txt">/jonathan-faircloth-resume.txt</a>', className: 'muted' },
+      );
+
+      return lines;
     }
 
     if (file === 'about.txt') {

@@ -1,0 +1,169 @@
+---
+import type { ResumeEmployer } from "../data/resume";
+import { formatMonthYear } from "../utils";
+
+interface Props {
+  employer: ResumeEmployer;
+  compact?: boolean;
+}
+
+const { employer } = Astro.props;
+---
+
+<section class="employer-card">
+  <div class="employer-header">
+    <h3>
+      <span class="company-name">{employer.companyLine}</span>
+      <span class="company-divider" aria-hidden="true">&middot;</span>
+      <span class="company-location">{employer.location}</span>
+    </h3>
+  </div>
+
+  <div class="role-list">
+    {employer.roles.map((role) => (
+      <article class="role-item">
+        <div class="role-header">
+          <h4>{role.title}</h4>
+          <span class="role-date">
+            {formatMonthYear(role.startDate)} &ndash; {role.endDate ? formatMonthYear(role.endDate) : "Present"}
+          </span>
+        </div>
+        <ul class="role-bullets">
+          {role.bullets.map((bullet) => <li>{bullet}</li>)}
+        </ul>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .employer-card {
+    padding: 1.25rem 0;
+  }
+
+  .employer-card:first-child {
+    padding-top: 0;
+  }
+
+  .employer-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
+  .company-name {
+    color: var(--color-fg);
+    font-weight: 600;
+  }
+
+  .company-location,
+  .company-divider {
+    color: var(--color-fg-muted);
+    font-size: 0.95rem;
+    font-weight: 400;
+  }
+
+  .company-location {
+    white-space: nowrap;
+  }
+
+  .role-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .role-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .role-header h4 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .role-date {
+    color: var(--color-fg-muted);
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .role-bullets {
+    list-style: disc;
+    margin: 0.75rem 0 0 1.25rem;
+    padding: 0;
+    color: var(--color-fg-muted);
+  }
+
+  .role-bullets li {
+    margin-bottom: 0.4rem;
+  }
+
+  @media print {
+    .employer-card,
+    .role-item {
+      break-inside: avoid;
+    }
+
+    .role-bullets {
+      font-size: 0.79rem;
+      line-height: 1.28;
+    }
+  }
+
+  :global(.compact) .employer-card {
+    padding: 0.45rem 0;
+  }
+
+  :global(.compact) .employer-header h3 {
+    font-size: 0.96rem;
+  }
+
+  :global(.compact) .company-location,
+  :global(.compact) .company-divider {
+    font-size: 0.78rem;
+  }
+
+  :global(.compact) .role-list {
+    gap: 0.45rem;
+  }
+
+  :global(.compact) .role-header h4 {
+    font-size: 0.87rem;
+  }
+
+  :global(.compact) .role-date {
+    font-size: 0.74rem;
+  }
+
+  :global(.compact) .role-bullets {
+    margin-top: 0.22rem;
+    margin-left: 0.9rem;
+    font-size: 0.74rem;
+    line-height: 1.18;
+  }
+
+  :global(.compact) .role-bullets li {
+    margin-bottom: 0.08rem;
+  }
+
+  @media (max-width: 640px) {
+    .employer-header h3 {
+      gap: 0.25rem;
+    }
+
+    .company-location {
+      flex-basis: 100%;
+    }
+
+    .company-divider {
+      display: none;
+    }
+  }
+</style>

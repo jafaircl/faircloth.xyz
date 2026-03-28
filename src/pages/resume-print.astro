@@ -1,0 +1,59 @@
+---
+import ResumeDocument from "../components/ResumeDocument.astro";
+import PrintLayout from "../layouts/PrintLayout.astro";
+---
+
+<PrintLayout
+  title="Jonathan Faircloth Resume"
+  description="Print-friendly resume for Jonathan Faircloth"
+>
+  <main class="print-page">
+    <div class="print-actions no-print">
+      <a href="/resume">Back to Resume</a>
+      <button onclick="window.print()">Print / Save PDF</button>
+      <a href="/jonathan-faircloth-resume.txt" download>Download TXT</a>
+    </div>
+
+    <ResumeDocument compact={true} />
+  </main>
+</PrintLayout>
+
+<style>
+  .print-page {
+    max-width: 8in;
+    margin: 0 auto;
+    padding: 1.25rem 0.75rem 2rem;
+  }
+
+  .print-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .print-actions a,
+  .print-actions button {
+    padding: 0.55rem 0.95rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.6rem;
+    background: transparent;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+  }
+
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .print-page {
+      max-width: none;
+      padding: 0;
+    }
+  }
+</style>

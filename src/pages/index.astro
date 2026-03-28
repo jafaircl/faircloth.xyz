@@ -88,9 +88,13 @@ const projects = (await getCollection('projects'))
       if (uiMode === 'standard') {
         terminalMode.style.display = 'none';
         standardMode.style.display = '';
+        document.body.classList.remove('terminal-active');
+        document.documentElement.classList.remove('terminal-active');
       } else {
         terminalMode.style.display = '';
         standardMode.style.display = 'none';
+        document.body.classList.add('terminal-active');
+        document.documentElement.classList.add('terminal-active');
         // Terminal will be initialized by the terminal module
         import('../components/terminal/terminal.ts').then(({ initTerminal }) => {
           initTerminal(document.getElementById('terminal-container')!);
@@ -193,11 +197,15 @@ const projects = (await getCollection('projects'))
   }
 
   #terminal-mode {
-    height: 100vh;
-    height: 100svh;
-    height: 100dvh;
-    min-height: 100vh;
+    position: fixed;
+    inset: 0;
     overflow: hidden;
     background-color: var(--color-terminal-bg);
+  }
+
+  :global(html.terminal-active),
+  :global(body.terminal-active) {
+    background-color: var(--color-terminal-bg);
+    overflow: hidden;
   }
 </style>

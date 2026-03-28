@@ -1,0 +1,280 @@
+---
+import ResumeEmployer from "./ResumeEmployer.astro";
+import { resume } from "../data/resume";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<div class:list={["resume-document", { compact }]}>
+  <div class="resume-header">
+    <div class="resume-name-row">
+      <h1>{resume.name}</h1>
+      <span class="name-divider" aria-hidden="true">&middot;</span>
+      <p class="resume-title">{resume.title}</p>
+    </div>
+    <div class="resume-contact">
+      <span>{resume.location}</span>
+      <span>&middot;</span>
+      <a href={`mailto:${resume.email}`}>{resume.email}</a>
+      <span>&middot;</span>
+      <a href={`https://${resume.website}`} target="_blank" rel="noopener noreferrer">{resume.website}</a>
+      <span>&middot;</span>
+      <a href="https://github.com/jafaircl" target="_blank" rel="noopener noreferrer">{resume.github}</a>
+    </div>
+    <p class="resume-summary">{resume.summary}</p>
+  </div>
+
+  <section class="resume-section">
+    <h2>Experience</h2>
+    {resume.employers.map((employer) => <ResumeEmployer employer={employer} compact={compact} />)}
+  </section>
+
+  <section class="resume-section">
+    <h2>Education</h2>
+    <div class="education-item">
+      {compact ? (
+        <p class="education-meta">
+          {resume.education.school} &middot; {resume.education.location} &middot; {resume.education.degree} &middot; {resume.education.graduationYear}
+        </p>
+      ) : (
+        <>
+          <h3>{resume.education.degree}</h3>
+          <p class="education-meta">
+            {resume.education.school} &middot; {resume.education.location} &middot; {resume.education.graduationYear}
+          </p>
+        </>
+      )}
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2>Skills</h2>
+    {compact ? (
+      <div class="skills-compact">
+        {resume.skillGroups.map((group) => (
+          <p><strong>{group.name}:</strong> {group.skills.join(" · ")}</p>
+        ))}
+      </div>
+    ) : (
+      <div class="skills-grid">
+        {resume.skillGroups.map((group) => (
+          <div class="skill-group">
+            <h3>{group.name}</h3>
+            <p>{group.skills.join(" · ")}</p>
+          </div>
+        ))}
+      </div>
+    )}
+  </section>
+</div>
+
+<style>
+  .resume-document {
+    padding-bottom: 3rem;
+  }
+
+  .resume-header {
+    width: 100%;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .resume-header h1 {
+    margin: 0;
+  }
+
+  .resume-name-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .name-divider {
+    color: var(--color-fg-muted);
+  }
+
+  .resume-title {
+    font-size: 1.15rem;
+    color: var(--color-fg-muted);
+    margin: 0;
+  }
+
+  .resume-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--color-fg-muted);
+  }
+
+  .resume-summary {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    max-width: none;
+    color: var(--color-fg-muted);
+  }
+
+  .resume-section {
+    margin-bottom: 2rem;
+  }
+
+  .resume-section h2 {
+    font-size: 1.35rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .education-item h3 {
+    font-size: 1.05rem;
+    margin: 1rem 0 0.25rem;
+  }
+
+  .education-meta {
+    font-size: 0.9rem;
+    color: var(--color-fg-muted);
+  }
+
+  .skills-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .skill-group h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+  }
+
+  .skill-group p {
+    color: var(--color-fg-muted);
+  }
+
+  .skills-compact {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+  }
+
+  .skills-compact p {
+    color: var(--color-fg-muted);
+    font-size: 0.84rem;
+    line-height: 1.35;
+  }
+
+  .compact {
+    padding-bottom: 0;
+  }
+
+  .compact .resume-header {
+    margin-bottom: 0.65rem;
+    padding-bottom: 0.45rem;
+  }
+
+  .compact .resume-header h1 {
+    font-size: 1.38rem;
+  }
+
+  .compact .resume-name-row {
+    gap: 0.35rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .compact .name-divider {
+    font-size: 0.88rem;
+  }
+
+  .compact .resume-title {
+    font-size: 0.88rem;
+  }
+
+  .compact .resume-contact {
+    gap: 0.25rem;
+    font-size: 0.72rem;
+  }
+
+  .compact .resume-summary {
+    margin-top: 0.35rem;
+    max-width: none;
+    font-size: 0.74rem;
+    line-height: 1.18;
+  }
+
+  .compact .resume-section {
+    margin-bottom: 0.3rem;
+  }
+
+  .compact .resume-section h2 {
+    font-size: 0.88rem;
+    margin-top: 0;
+    margin-bottom: 0.18rem;
+    padding-bottom: 0.14rem;
+  }
+
+  .compact .education-item h3 {
+    margin: 0.3rem 0 0.15rem;
+    font-size: 0.85rem;
+  }
+
+  .compact .education-meta {
+    font-size: 0.76rem;
+    line-height: 1.2;
+  }
+
+  .compact .skills-compact {
+    gap: 0.18rem;
+    margin-top: 0.35rem;
+  }
+
+  .compact .skills-compact p {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .compact .resume-section + .resume-section {
+    margin-top: 0;
+  }
+
+  @page {
+    size: letter;
+    margin: 0.4in;
+  }
+
+  @media print {
+    .resume-document {
+      font-size: 10pt;
+      color: #000;
+      padding: 0;
+    }
+
+    .resume-header {
+      border-bottom: 1px solid #ccc;
+    }
+
+    .resume-section h2 {
+      border-bottom: 1px solid #ccc;
+    }
+
+    .resume-summary,
+    .education-meta,
+    .skill-group p {
+      color: #333;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .compact .resume-summary {
+      margin-top: 0.35rem;
+    }
+  }
+</style>
