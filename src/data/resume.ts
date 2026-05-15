@@ -40,7 +40,7 @@ export const resume = {
           startDate: "2023-02-02",
           bullets: [
             "Built integration services and internal applications with Angular, Node.js, Python, Kafka, GraphQL, REST, and gRPC to connect products used globally in clinical trials for major pharmaceutical companies.",
-            "Shipped data synchronization and embedded reporting features across web, iOS, and Android applications supporting more than 100,000 patients and clinicians across North America, Europe, South America, and Asia.",
+            "Shipped data synchronization and embedded reporting features across web, iOS, and Android applications used in global clinical trial operations.",
             "Optimized large-scale report generation for datasets with millions of rows by redesigning processing and file output workflows, improving performance by 30% and reducing memory usage by 55%.",
             "Helped build and optimize multilingual AI-enabled workflows for clinical interview analysis, improving scoring accuracy and reducing turnaround time from hours to minutes.",
             "Led code reviews, mentored junior engineers, and helped raise unit test coverage in established projects from under 25% to over 85% by introducing stronger tooling and shared standards.",
